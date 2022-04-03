@@ -40,16 +40,6 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-		#if polymod
-		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
-		#end
-
-		#if sys
-		if (!sys.FileSystem.exists(Sys.getCwd() + "/assets/replays"))
-		{
-			sys.FileSystem.createDirectory(Sys.getCwd() + "/assets/replays");
-		}
-		#end
 
 		// (tsg) this is stupid, i don't know how i was given approval to do this, but here's the coconut
 		if (sys.FileSystem.exists("assets/images/coconut.png") == false)
@@ -142,12 +132,12 @@ class TitleState extends MusicBeatState
 		// logoBl.color = FlxColor.BLACK;
 
 		add(logoBl);
-		logoBg = new FlxSprite().loadGraphic(Paths.image("titleScreenBg"));
+		var logoBg:FlxSprite = new FlxSprite().loadGraphic(Paths.image("titleScreenBg"));
 		logoBg.antialiasing = FlxG.save.data.antialiasing;
 		logoBg.screenCenter();
 		add(logoBg);
 
-		titleText = new FlxSprite(100, FlxG.height * 0.8);
+		var titleText:FlxSprite = new FlxSprite(100, FlxG.height * 0.8);
 		titleText.frames = Paths.getSparrowAtlas('titleEnter');
 		titleText.animation.addByPrefix('idle', "Press Enter to Begin", 24);
 		titleText.animation.addByPrefix('press', "ENTER PRESSED", 24);
@@ -177,7 +167,7 @@ class TitleState extends MusicBeatState
 			}
 		}
 
-		logoBl = new FlxSprite(-150, -4);
+		var logoBl:FlxSprite = new FlxSprite(-150, -4);
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		logoBl.antialiasing = FlxG.save.data.antialiasing;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24, false);
@@ -191,7 +181,7 @@ class TitleState extends MusicBeatState
 		// logoBl.color = FlxColor.BLACK;
 		add(logoBl);
 
-		part1 = new FlxSprite(0, 0);
+		var part1:FlxSprite = new FlxSprite(0, 0);
 		part1.loadGraphic(Paths.image('Part_1', 'preload'));
 		part1.antialiasing = FlxG.save.data.antialiasing;
 		part1.scale.set(0.2, 0.2);
