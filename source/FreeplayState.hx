@@ -178,7 +178,7 @@ class FreeplayState extends MusicBeatState
 			}
 		}
 		#end
-
+			
 		//trace("\n" + diffList);
 
 		/*
@@ -344,6 +344,11 @@ class FreeplayState extends MusicBeatState
 
 			trace(md);
 		 */
+					
+	     #if mobileC
+		 addVirtualPad(FULL, A_B);
+		 #end
+					
 		fadeBG = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height);
 		fadeBG.color = FlxColor.BLACK;
 		fadeBG.alpha = 0.9;
