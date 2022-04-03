@@ -1983,18 +1983,6 @@ class PlayState extends MusicBeatState
 
 	var keys = [false, false, false, false];
 
-	private function releaseInput(evt:KeyboardEvent):Void // handles releases
-	{
-		@:privateAccess
-		var key = FlxKey.toStringMap.get(Keyboard.__convertKeyCode(evt.keyCode));
-
-		var binds:Array<String> = [
-			FlxG.save.data.leftBind,
-			FlxG.save.data.downBind,
-			FlxG.save.data.upBind,
-			FlxG.save.data.rightBind
-		];
-
 		var data = -1;
 
 		switch (evt.keyCode) // arrow keys
