@@ -35,6 +35,7 @@ import openfl.display.BlendMode;
 import openfl.events.KeyboardEvent;
 import openfl.media.Sound;
 import openfl.ui.Keyboard;
+import ui.Mobilecontrols;
 
 using StringTools;
 #if sys
@@ -314,7 +315,11 @@ class PlayState extends MusicBeatState
 	public static var highestCombo:Int = 0;
 
 	private var executeModchart = false;
-
+	
+    #if mobileC
+	var mcontrols:Mobilecontrols; 
+	#end
+		
 	// Animation common suffixes
 	private var dataSuffix:Array<String> = ['LEFT', 'DOWN', 'UP', 'RIGHT'];
 	//private var dataColor:Array<String> = ['purple', 'blue', 'green', 'red'];
@@ -1384,7 +1389,15 @@ class PlayState extends MusicBeatState
 				add(poisonNoteHits[i]);
 			}
 		}
-
+		
+	function startCountdown():Void
+	{
+        #if mobileC
+		mcontrols.visible = true;
+		#end
+		
+		inCutscene = false;	
+		
 		generateStaticArrows(0);
 		generateStaticArrows(1);
 
@@ -1603,6 +1616,31 @@ class PlayState extends MusicBeatState
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
+		
+		#if mobileC
+			    mcontrols = new Mobilecontrols();
+			    switch (mcontrols.mode)
+			    {
+						case VIRTUALPAD_RIGHT | VIRTUALPAD_LEFT | VIRTUALPAD_CUSTOM:
+						        controls.setVirtualPad(mcontrols._virtualPad, FULL, NONE);
+                        case HITBOX:
+						        controls.setHitBox(mcontrols._hitbox);
+						default:
+				}
+			    trackedinputs = controls.trackedinputs;
+			    controls.trackedinputs = [];
+
+			    var camcontrol = new FlxCamera();
+			    FlxG.cameras.add(camcontrol);
+			    camcontrol.bgColor.alpha = 0;
+			    mcontrols.cameras = [camcontrol];
+
+			    mcontrols.visible = false;
+
+			    add(mcontrols);
+		#end
+		  
+		
 		//lyricTxt.cameras = [camHUD]; // (tsg - 7/24/21) small things lyric system port
 		//lyricSpeakerIcon.cameras = [camHUD]; // (tsg - 7/24/21) small things lyric system port
 
